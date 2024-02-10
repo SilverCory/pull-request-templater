@@ -78,7 +78,7 @@ handlebars.registerHelper("withPipe", withPipe);
 handlebars.registerHelper("extractBranchName", extractBranchName);
 handlebars.registerHelper("extractTicketNumber", extractTicketNumber);
 
-console.log("Hello World!"
+console.log("Hello World!"    );
 
 try {
   await run();
