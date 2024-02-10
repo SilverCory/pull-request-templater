@@ -1,0 +1,13 @@
+name: 'Pull Request Templater'
+description: 'Allows for dynamic templating of a pull request template'
+inputs:
+  github-token:
+    description: "The GITHUB_TOKEN secret for the repository"
+    default: ${{ github.token }}
+    required: false
+  custom-input:
+    description: "Custom inputs as a JSON object"
+    required: false
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

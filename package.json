@@ -1,0 +1,29 @@
+{
+  "name": "pull-request-templater",
+  "version": "0.1.0",
+  "description": "A pull request templater for pull request templates.",
+  "main": "dist/index.js",
+  "repository": "https://github.com/SilverCory/pull-request-templater",
+  "author": "Cory Redmond",
+  "license": "WTFPL",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "ncc build src/app.ts -o dist",
+    "format": "prettier --write .",
+    "lint": "prettier --check .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@actions/core": "^1.9.1",
+    "@actions/github": "^5.0.0",
+    "handlebars": "^4.7.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@vercel/ncc": "^0.38.1",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  }
+}
