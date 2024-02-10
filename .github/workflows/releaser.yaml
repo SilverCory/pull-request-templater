@@ -2,6 +2,11 @@ name: 'Releaser'
 on:
   push:
     branches: ['master']
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'yarn.lock'
+      - 'tsconfig.json'
 jobs:
   build:
     runs-on: ubuntu-latest
