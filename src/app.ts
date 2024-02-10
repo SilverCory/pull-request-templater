@@ -68,7 +68,7 @@ const run = async (): Promise<void> => {
 
   debug(`Response: ${response.status}`);
   if (response.status !== 200) {
-    error(
+    throw new Error(
       `Updating the pull request has failed: ${JSON.stringify(response)})}`,
     );
   }
