@@ -8,6 +8,10 @@ inputs:
   custom-input:
     description: "Custom inputs as a JSON object"
     required: false
+branding:
+  icon: 'dollar-sign'
+  color: 'green'
+author: 'SilverCory'
 runs:
   using: 'node20'
   main: 'dist/index.js'

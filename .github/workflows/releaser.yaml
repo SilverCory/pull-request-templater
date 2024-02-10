@@ -17,11 +17,25 @@ jobs:
       - name: Build
         run: yarn build
       - name: Release
+        id: release
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git add .
           npm version minor --force -m "Bump version to %s"
-          git push --follow-tags
+          version=$(node -p -e "require('./package.json').version")
+          echo "PACKAGE_VERSION=$version" >> $GITHUB_OUTPUT
+          git push --follow-tags -f
+      # Create a release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            tag_name: ${{ steps.release.outputs.PACKAGE_VERSION }}
+            release_name: Release ${{ steps.release.outputs.PACKAGE_VERSION }}
+            draft: false
+            prerelease: false
 
 
