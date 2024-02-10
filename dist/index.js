@@ -40053,7 +40053,7 @@ const run = async () => {
     const response = await octokit.rest.pulls.update(request);
     (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`Response: ${response.status}`);
     if (response.status !== 200) {
-        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.error)(`Updating the pull request has failed: ${JSON.stringify(response)})}`);
+        throw new Error(`Updating the pull request has failed: ${JSON.stringify(response)})}`);
     }
 };
 handlebars__WEBPACK_IMPORTED_MODULE_2__.registerHelper("withPipe", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .withPipe */ .vu);
