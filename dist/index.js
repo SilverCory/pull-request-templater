@@ -40011,6 +40011,8 @@ __nccwpck_require__.r(__webpack_exports__);
 /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(7492);
 /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(handlebars__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _configuration__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(5778);
+/* harmony import */ var _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(1100);
+
 
 
 
@@ -40054,6 +40056,9 @@ const run = async () => {
         (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.error)(`Updating the pull request has failed: ${JSON.stringify(response)})}`);
     }
 };
+handlebars__WEBPACK_IMPORTED_MODULE_2__.registerHelper("withPipe", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .withPipe */ .vu);
+handlebars__WEBPACK_IMPORTED_MODULE_2__.registerHelper("extractBranchName", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractBranchName */ .zZ);
+handlebars__WEBPACK_IMPORTED_MODULE_2__.registerHelper("extractTicketNumber", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractTicketNumber */ .gm);
 try {
     await run();
 }
@@ -40081,6 +40086,35 @@ const getConfiguration = () => {
         githubToken: (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("github-token"),
         customInput: JSON.parse((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("custom-input")),
     };
+};
+
+
+/***/ }),
+
+/***/ 1100:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   "gm": () => (/* binding */ extractTicketNumber),
+/* harmony export */   "vu": () => (/* binding */ withPipe),
+/* harmony export */   "zZ": () => (/* binding */ extractBranchName)
+/* harmony export */ });
+const extractTicketNumber = (s) => {
+    const ticketNumber = s.split("-").slice(0, 2).join("-").toUpperCase();
+    if (ticketNumber.match(/^([A-Z]+-[0-9]+)$/)) {
+        return ticketNumber;
+    }
+    return "";
+};
+const extractBranchName = (s) => {
+    const ticketNumber = s.split("-");
+    ticketNumber.shift();
+    ticketNumber.shift();
+    return ticketNumber.join(" ");
+};
+const withPipe = (s) => {
+    return s ? `${s} | ` : "";
 };
 
 
