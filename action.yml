@@ -1,5 +1,5 @@
-name: 'Pull Request Templater'
-description: 'Allows for dynamic templating of a pull request template'
+name: "Pull Request Templater"
+description: "Allows for dynamic templating of a pull request template"
 inputs:
   github-token:
     description: "The GITHUB_TOKEN secret for the repository"
@@ -9,9 +9,9 @@ inputs:
     description: "Custom inputs as a JSON object"
     required: false
 branding:
-  icon: 'dollar-sign'
-  color: 'green'
-author: 'SilverCory'
+  icon: "dollar-sign"
+  color: "green"
+author: "SilverCory"
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: "node20"
+  main: "dist/index.js"
