@@ -1,4 +1,3 @@
-import { debug, error, setFailed } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import * as handlebars from "handlebars";
 import { RestEndpointMethodTypes } from "@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types";
@@ -8,6 +7,8 @@ import {
   extractTicketNumber,
   withPipe,
 } from "./templatefuncs/extract_ticket";
+import { debug, setFailed } from "@actions/core";
+import helpers from "handlebars-helpers";
 
 type TemplateContext = {
   custom: any;
@@ -17,6 +18,11 @@ type TemplateContext = {
     workflow: string;
     action: string;
     actor: string;
+    base: {
+      ref: string;
+      label: string;
+      sha: string;
+    };
     pull_request: {
       number: number;
     };
@@ -24,6 +30,11 @@ type TemplateContext = {
 };
 
 const run = async (): Promise<void> => {
+  const pr = context.payload.pull_request;
+  if (!pr || !pr.body || !pr.title) {
+    throw new Error("This action is only supported on pull requests");
+  }
+
   const config = getConfiguration();
 
   const viewData: TemplateContext = {
@@ -34,16 +45,16 @@ const run = async (): Promise<void> => {
       workflow: context.workflow,
       action: context.action,
       actor: context.actor,
+      base: {
+        ref: context.payload.pull_request?.base.ref,
+        label: context.payload.pull_request?.base.label,
+        sha: context.payload.pull_request?.base.sha,
+      },
       pull_request: {
         number: context.issue.number,
       },
     },
   };
-
-  const pr = context.payload.pull_request;
-  if (!pr || !pr.body || !pr.title) {
-    throw new Error("This action is only supported on pull requests");
-  }
 
   debug("Body: " + pr.body?.slice(0, 50) + "...");
   debug("Pull Request Title: " + pr.title || "");
@@ -74,6 +85,7 @@ const run = async (): Promise<void> => {
   }
 };
 
+helpers({ handlebars });
 handlebars.registerHelper("withPipe", withPipe);
 handlebars.registerHelper("extractBranchName", extractBranchName);
 handlebars.registerHelper("extractTicketNumber", extractTicketNumber);
