@@ -86,6 +86,7 @@ const run = async (): Promise<void> => {
 };
 
 helpers({ handlebars });
+
 handlebars.registerHelper("withPipe", withPipe);
 handlebars.registerHelper("extractBranchName", extractBranchName);
 handlebars.registerHelper("extractTicketNumber", extractTicketNumber);
