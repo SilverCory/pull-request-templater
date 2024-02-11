@@ -5,8 +5,8 @@ Copy this into the title:
 
 -->
 
-# {{ refTitle context.ref }}
+# {{ refTitle context.head.ref }}
 
 ### Description:
 
-<small>{{ custom.random-number }}</small>
+<small>{{ custom.randomNumber }}</small>
