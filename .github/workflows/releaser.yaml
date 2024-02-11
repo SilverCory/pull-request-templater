@@ -30,6 +30,7 @@ jobs:
           npm version minor --force -m "Bump version to %s"
           version=$(node -p -e "require('./package.json').version")
           echo "PACKAGE_VERSION=$version" >> $GITHUB_OUTPUT
+          git tag v1
           git push --follow-tags -f
       # Create a release
       - name: Create Release
