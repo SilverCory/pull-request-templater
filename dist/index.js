@@ -40072,6 +40072,13 @@ handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("withPipe", _templatefunc
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("extractBranchName", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractBranchName */ .zZ);
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("extractTicketNumber", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractTicketNumber */ .gm);
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("refTitle", _templatefuncs_strings__WEBPACK_IMPORTED_MODULE_5__/* .refTitle */ .L);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("ticketFmt", (context) => {
+    return ((0,_templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .withPipe */ .vu)(context.base.ref === "main" || context.base.ref === "master"
+        ? "RELEASE"
+        : "") +
+        (0,_templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .withPipe */ .vu)((0,_templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractTicketNumber */ .gm)(context.head.ref)) +
+        (0,_templatefuncs_strings__WEBPACK_IMPORTED_MODULE_5__/* .refTitle */ .L)((0,_templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractBranchName */ .zZ)(context.head.ref)));
+});
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("json", (a) => {
     return JSON.stringify(a, null, 2);
 });
