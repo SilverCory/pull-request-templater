@@ -18,6 +18,11 @@ type TemplateContext = {
     workflow: string;
     action: string;
     actor: string;
+    head: {
+      ref: string;
+      label: string;
+      sha: string;
+    };
     base: {
       ref: string;
       label: string;
@@ -45,6 +50,11 @@ const run = async (): Promise<void> => {
       workflow: context.workflow,
       action: context.action,
       actor: context.actor,
+      head: {
+        ref: context.payload.pull_request?.head.ref,
+        label: context.payload.pull_request?.head.label,
+        sha: context.payload.pull_request?.head.sha,
+      },
       base: {
         ref: context.payload.pull_request?.base.ref,
         label: context.payload.pull_request?.base.label,
