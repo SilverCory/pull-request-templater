@@ -40019,6 +40019,7 @@ __nccwpck_require__.r(__webpack_exports__);
 
 
 
+
 const run = async () => {
     const pr = _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.payload.pull_request;
     if (!pr || !pr.body || !pr.title) {
@@ -40080,7 +40081,7 @@ handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("ticketFmt", (context) =>
         (0,_templatefuncs_strings__WEBPACK_IMPORTED_MODULE_5__/* .refTitle */ .L)((0,_templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractBranchName */ .zZ)(context.head.ref)));
 });
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("json", (a) => {
-    return JSON.stringify(a, null, 2);
+    return new handlebars__WEBPACK_IMPORTED_MODULE_1__.SafeString(JSON.stringify(a, null, 2));
 });
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("eq", (a, b) => a === b);
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("neq", (a, b) => a !== b);
@@ -40132,6 +40133,8 @@ const getConfiguration = () => {
 /* harmony export */   "vu": () => (/* binding */ withPipe),
 /* harmony export */   "zZ": () => (/* binding */ extractBranchName)
 /* harmony export */ });
+/* harmony import */ var _strings__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(4406);
+
 const extractTicketNumber = (s) => {
     const ticketNumber = s.split("-").slice(0, 2).join("-").toUpperCase();
     if (ticketNumber.match(/^([A-Z]+-[0-9]+)$/)) {
@@ -40140,10 +40143,8 @@ const extractTicketNumber = (s) => {
     return "";
 };
 const extractBranchName = (s) => {
-    const ticketNumber = s.split("-");
-    ticketNumber.shift();
-    ticketNumber.shift();
-    return ticketNumber.join(" ");
+    const ticketNumber = extractTicketNumber(s);
+    return (0,_strings__WEBPACK_IMPORTED_MODULE_0__/* .refTitle */ .L)(s.slice(0, ticketNumber.length + 1));
 };
 const withPipe = (s) => {
     return s ? `${s} | ` : "";
