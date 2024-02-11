@@ -29,7 +29,7 @@ jobs:
           git add -f dist
           npm version minor --force -m "Bump version to %s"
           version=$(node -p -e "require('./package.json').version")
-          echo "PACKAGE_VERSION=$version" >> $GITHUB_OUTPUT
+          echo "PACKAGE_VERSION=v$version" >> $GITHUB_OUTPUT
           git push --follow-tags -f
           git tag v1 -f
           git push origin v1 -f
