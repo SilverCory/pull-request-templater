@@ -58,5 +58,3 @@ Available helper functions:
   - Extracts everything after a ticket number in a branch name.
 - `extractTicketNumber`
   - Extracts a ticket number from a branch name. (Branch name format as follows: `IDT-1234-branch-name`)
-
-There are also helper functions supplied by the [`handlebars-helpers`](https://github.com/helpers/handlebars-helpers) package.
