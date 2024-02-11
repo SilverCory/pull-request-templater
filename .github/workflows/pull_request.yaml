@@ -14,7 +14,7 @@ jobs:
         run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
       - uses: silvercory/pull-request-templater@v1
         with:
-          customInput: |
+          custom-input: |
             {
               "randomNumber": "${{ steps.random-number-generator.outputs.random-number }}"
             }

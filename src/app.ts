@@ -8,7 +8,6 @@ import {
   withPipe,
 } from "./templatefuncs/extract_ticket";
 import { debug, setFailed } from "@actions/core";
-import helpers from "handlebars-helpers";
 
 type TemplateContext = {
   custom: any;
@@ -84,8 +83,6 @@ const run = async (): Promise<void> => {
     );
   }
 };
-
-helpers({ handlebars });
 
 handlebars.registerHelper("withPipe", withPipe);
 handlebars.registerHelper("extractBranchName", extractBranchName);
