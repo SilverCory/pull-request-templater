@@ -8,6 +8,6 @@ export type Configuration = {
 export const getConfiguration = (): Configuration => {
   return {
     githubToken: getInput("github-token"),
-    customInput: JSON.parse(getInput("custom-input")),
+    customInput: JSON.parse(getInput("custom-input") || "{}"),
   };
 };
