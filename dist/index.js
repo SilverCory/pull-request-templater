@@ -40033,6 +40033,11 @@ const run = async () => {
             workflow: _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.workflow,
             action: _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.action,
             actor: _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.actor,
+            head: {
+                ref: _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.payload.pull_request?.head.ref,
+                label: _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.payload.pull_request?.head.label,
+                sha: _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.payload.pull_request?.head.sha,
+            },
             base: {
                 ref: _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.payload.pull_request?.base.ref,
                 label: _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.payload.pull_request?.base.label,
