@@ -89,6 +89,9 @@ handlebars.registerHelper("withPipe", withPipe);
 handlebars.registerHelper("extractBranchName", extractBranchName);
 handlebars.registerHelper("extractTicketNumber", extractTicketNumber);
 handlebars.registerHelper("refTitle", refTitle);
+handlebars.registerHelper("json", (a) => {
+  return JSON.stringify(a, null, 2);
+});
 handlebars.registerHelper("eq", (a, b) => a === b);
 handlebars.registerHelper("neq", (a, b) => a !== b);
 handlebars.registerHelper("and", (a, b) => a && b);
