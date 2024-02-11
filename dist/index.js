@@ -40012,6 +40012,8 @@ __nccwpck_require__.r(__webpack_exports__);
 /* harmony import */ var _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(1100);
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(2186);
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _templatefuncs_strings__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(4406);
+
 
 
 
@@ -40064,6 +40066,16 @@ const run = async () => {
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("withPipe", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .withPipe */ .vu);
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("extractBranchName", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractBranchName */ .zZ);
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("extractTicketNumber", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractTicketNumber */ .gm);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("refTitle", _templatefuncs_strings__WEBPACK_IMPORTED_MODULE_5__/* .refTitle */ .L);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("eq", (a, b) => a === b);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("neq", (a, b) => a !== b);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("and", (a, b) => a && b);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("or", (a, b) => a || b);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("not", (a) => !a);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("gt", (a, b) => a > b);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("lt", (a, b) => a < b);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("gte", (a, b) => a >= b);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("lte", (a, b) => a <= b);
 try {
     await run();
 }
@@ -40120,6 +40132,23 @@ const extractBranchName = (s) => {
 };
 const withPipe = (s) => {
     return s ? `${s} | ` : "";
+};
+
+
+/***/ }),
+
+/***/ 4406:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
+/* harmony export */   "L": () => (/* binding */ refTitle)
+/* harmony export */ });
+const refTitle = (branch) => {
+    return branch
+        .split("-")
+        .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
+        .join(" ");
 };
 
 
