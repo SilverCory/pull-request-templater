@@ -11,27 +11,29 @@ import { debug, setFailed } from "@actions/core";
 import { refTitle } from "./templatefuncs/strings";
 
 type TemplateContext = {
-  custom: any;
-  context: {
-    sha: string;
+  sha: string;
+  ref: string;
+  workflow: string;
+  action: string;
+  actor: string;
+  head: {
     ref: string;
-    workflow: string;
-    action: string;
-    actor: string;
-    head: {
-      ref: string;
-      label: string;
-      sha: string;
-    };
-    base: {
-      ref: string;
-      label: string;
-      sha: string;
-    };
-    pull_request: {
-      number: number;
-    };
+    label: string;
+    sha: string;
   };
+  base: {
+    ref: string;
+    label: string;
+    sha: string;
+  };
+  pull_request: {
+    number: number;
+  };
+};
+
+type TemplateView = {
+  custom: any;
+  context: TemplateContext;
 };
 
 const run = async (): Promise<void> => {
@@ -42,7 +44,7 @@ const run = async (): Promise<void> => {
 
   const config = getConfiguration();
 
-  const viewData: TemplateContext = {
+  const viewData: TemplateView = {
     custom: config.customInput,
     context: {
       sha: context.sha,
@@ -99,6 +101,17 @@ handlebars.registerHelper("withPipe", withPipe);
 handlebars.registerHelper("extractBranchName", extractBranchName);
 handlebars.registerHelper("extractTicketNumber", extractTicketNumber);
 handlebars.registerHelper("refTitle", refTitle);
+handlebars.registerHelper("ticketFmt", (context: TemplateContext) => {
+  return (
+    withPipe(
+      context.base.ref === "main" || context.base.ref === "master"
+        ? "RELEASE"
+        : "",
+    ) +
+    withPipe(extractTicketNumber(context.head.ref)) +
+    refTitle(extractBranchName(context.head.ref))
+  );
+});
 handlebars.registerHelper("json", (a) => {
   return JSON.stringify(a, null, 2);
 });
