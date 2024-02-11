@@ -1,6 +1,6 @@
 {
   "name": "pull-request-templater",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A pull request templater for pull request templates.",
   "main": "dist/index.js",
   "repository": "https://github.com/SilverCory/pull-request-templater",

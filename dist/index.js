@@ -40089,7 +40089,7 @@ __webpack_async_result__();
 const getConfiguration = () => {
     return {
         githubToken: (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("github-token"),
-        customInput: JSON.parse((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("custom-input")),
+        customInput: JSON.parse((0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("custom-input") || "{}"),
     };
 };
 
