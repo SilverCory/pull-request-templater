@@ -7,16 +7,6 @@ on:
       - "package.json"
       - "yarn.lock"
       - "tsconfig.json"
-    # on pull request merge to master
-  pull_request:
-    types: [closed]
-    branches:
-      - master
-    paths:
-      - "src/**"
-      - "package.json"
-      - "yarn.lock"
-      - "tsconfig.json"
 
 jobs:
   build:
