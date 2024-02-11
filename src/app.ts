@@ -9,6 +9,7 @@ import {
 } from "./templatefuncs/extract_ticket";
 import { debug, setFailed } from "@actions/core";
 import { refTitle } from "./templatefuncs/strings";
+import { SafeString } from "handlebars";
 
 type TemplateContext = {
   sha: string;
@@ -113,7 +114,7 @@ handlebars.registerHelper("ticketFmt", (context: TemplateContext) => {
   );
 });
 handlebars.registerHelper("json", (a) => {
-  return JSON.stringify(a, null, 2);
+  return new SafeString(JSON.stringify(a, null, 2));
 });
 handlebars.registerHelper("eq", (a, b) => a === b);
 handlebars.registerHelper("neq", (a, b) => a !== b);
