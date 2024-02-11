@@ -31,7 +31,7 @@ jobs:
         id: random-number-generator
         shell: bash
         run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
-      - uses: silvercory/pull-request-templater@latest
+      - uses: silvercory/pull-request-templater@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           customInput: |
