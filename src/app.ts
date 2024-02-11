@@ -8,6 +8,7 @@ import {
   withPipe,
 } from "./templatefuncs/extract_ticket";
 import { debug, setFailed } from "@actions/core";
+import { refTitle } from "./templatefuncs/strings";
 
 type TemplateContext = {
   custom: any;
@@ -87,6 +88,16 @@ const run = async (): Promise<void> => {
 handlebars.registerHelper("withPipe", withPipe);
 handlebars.registerHelper("extractBranchName", extractBranchName);
 handlebars.registerHelper("extractTicketNumber", extractTicketNumber);
+handlebars.registerHelper("refTitle", refTitle);
+handlebars.registerHelper("eq", (a, b) => a === b);
+handlebars.registerHelper("neq", (a, b) => a !== b);
+handlebars.registerHelper("and", (a, b) => a && b);
+handlebars.registerHelper("or", (a, b) => a || b);
+handlebars.registerHelper("not", (a) => !a);
+handlebars.registerHelper("gt", (a, b) => a > b);
+handlebars.registerHelper("lt", (a, b) => a < b);
+handlebars.registerHelper("gte", (a, b) => a >= b);
+handlebars.registerHelper("lte", (a, b) => a <= b);
 
 try {
   await run();

@@ -1,11 +1,11 @@
 <!--
 
 Copy this into the title:
-{{ #eq context.base.ref "master" }}🚀 {{ /eq }}{{ (titleize (replace context.head.ref "-" " "))}}
+{{ #if eq context.base.ref "master" }}🚀 {{ /if }}{{ refTitle context.head.ref }}
 
 -->
 
-# {{ (titleize (replace context.head.ref "-" " "))}}
+# {{ refTitle context.head.ref }}
 
 ### Description:
 
