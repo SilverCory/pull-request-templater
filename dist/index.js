@@ -40067,6 +40067,9 @@ handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("withPipe", _templatefunc
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("extractBranchName", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractBranchName */ .zZ);
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("extractTicketNumber", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractTicketNumber */ .gm);
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("refTitle", _templatefuncs_strings__WEBPACK_IMPORTED_MODULE_5__/* .refTitle */ .L);
+handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("json", (a) => {
+    return JSON.stringify(a, null, 2);
+});
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("eq", (a, b) => a === b);
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("neq", (a, b) => a !== b);
 handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("and", (a, b) => a && b);
@@ -40144,11 +40147,15 @@ const withPipe = (s) => {
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
 /* harmony export */   "L": () => (/* binding */ refTitle)
 /* harmony export */ });
+/* unused harmony export json */
 const refTitle = (branch) => {
     return branch
         .split("-")
         .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
         .join(" ");
+};
+const json = (s) => {
+    return JSON.stringify(s);
 };
 
 
