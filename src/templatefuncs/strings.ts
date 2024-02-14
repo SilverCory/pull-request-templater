@@ -1,10 +1,7 @@
 export const refTitle = (branch: string) => {
+  if (!branch) return "";
   return branch
     .split("-")
-    .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
+    .map((w) => w[0].toUpperCase() + w?.substring(1).toLowerCase())
     .join(" ");
-};
-
-export const json = (s: string) => {
-  return JSON.stringify(s);
 };

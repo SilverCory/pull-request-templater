@@ -2,40 +2,10 @@ import { context, getOctokit } from "@actions/github";
 import * as handlebars from "handlebars";
 import { RestEndpointMethodTypes } from "@octokit/plugin-rest-endpoint-methods/dist-types/generated/parameters-and-response-types";
 import { getConfiguration } from "./configuration";
-import {
-  extractBranchName,
-  extractTicketNumber,
-  withPipe,
-} from "./templatefuncs/extract_ticket";
 import { debug, setFailed } from "@actions/core";
-import { refTitle } from "./templatefuncs/strings";
-import { SafeString } from "handlebars";
 
-type TemplateContext = {
-  sha: string;
-  ref: string;
-  workflow: string;
-  action: string;
-  actor: string;
-  head: {
-    ref: string;
-    label: string;
-    sha: string;
-  };
-  base: {
-    ref: string;
-    label: string;
-    sha: string;
-  };
-  pull_request: {
-    number: number;
-  };
-};
-
-type TemplateView = {
-  custom: any;
-  context: TemplateContext;
-};
+import TemplateFuncs from "./templatefuncs";
+TemplateFuncs(); // Load template functions.
 
 const run = async (): Promise<void> => {
   const pr = context.payload.pull_request;
@@ -97,34 +67,6 @@ const run = async (): Promise<void> => {
     );
   }
 };
-
-handlebars.registerHelper("withPipe", withPipe);
-handlebars.registerHelper("extractBranchName", extractBranchName);
-handlebars.registerHelper("extractTicketNumber", extractTicketNumber);
-handlebars.registerHelper("refTitle", refTitle);
-handlebars.registerHelper("ticketFmt", (context: TemplateContext) => {
-  return (
-    withPipe(
-      context.base.ref === "main" || context.base.ref === "master"
-        ? "RELEASE"
-        : "",
-    ) +
-    withPipe(extractTicketNumber(context.head.ref)) +
-    refTitle(extractBranchName(context.head.ref))
-  );
-});
-handlebars.registerHelper("json", (a) => {
-  return new SafeString(JSON.stringify(a, null, 2));
-});
-handlebars.registerHelper("eq", (a, b) => a === b);
-handlebars.registerHelper("neq", (a, b) => a !== b);
-handlebars.registerHelper("and", (a, b) => a && b);
-handlebars.registerHelper("or", (a, b) => a || b);
-handlebars.registerHelper("not", (a) => !a);
-handlebars.registerHelper("gt", (a, b) => a > b);
-handlebars.registerHelper("lt", (a, b) => a < b);
-handlebars.registerHelper("gte", (a, b) => a >= b);
-handlebars.registerHelper("lte", (a, b) => a <= b);
 
 try {
   await run();
