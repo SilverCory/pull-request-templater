@@ -40009,17 +40009,15 @@ __nccwpck_require__.r(__webpack_exports__);
 /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(7492);
 /* harmony import */ var handlebars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(handlebars__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _configuration__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(5778);
-/* harmony import */ var _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(1100);
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(2186);
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _templatefuncs_strings__WEBPACK_IMPORTED_MODULE_5__ = __nccwpck_require__(4406);
+/* harmony import */ var _templatefuncs__WEBPACK_IMPORTED_MODULE_4__ = __nccwpck_require__(4496);
 
 
 
 
 
-
-
+(0,_templatefuncs__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z)(); // Load template functions.
 const run = async () => {
     const pr = _actions_github__WEBPACK_IMPORTED_MODULE_0__.context.payload.pull_request;
     if (!pr || !pr.body || !pr.title) {
@@ -40069,29 +40067,6 @@ const run = async () => {
         throw new Error(`Updating the pull request has failed: ${JSON.stringify(response)})}`);
     }
 };
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("withPipe", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .withPipe */ .vu);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("extractBranchName", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractBranchName */ .zZ);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("extractTicketNumber", _templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractTicketNumber */ .gm);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("refTitle", _templatefuncs_strings__WEBPACK_IMPORTED_MODULE_5__/* .refTitle */ .L);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("ticketFmt", (context) => {
-    return ((0,_templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .withPipe */ .vu)(context.base.ref === "main" || context.base.ref === "master"
-        ? "RELEASE"
-        : "") +
-        (0,_templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .withPipe */ .vu)((0,_templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractTicketNumber */ .gm)(context.head.ref)) +
-        (0,_templatefuncs_strings__WEBPACK_IMPORTED_MODULE_5__/* .refTitle */ .L)((0,_templatefuncs_extract_ticket__WEBPACK_IMPORTED_MODULE_4__/* .extractBranchName */ .zZ)(context.head.ref)));
-});
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("json", (a) => {
-    return new handlebars__WEBPACK_IMPORTED_MODULE_1__.SafeString(JSON.stringify(a, null, 2));
-});
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("eq", (a, b) => a === b);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("neq", (a, b) => a !== b);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("and", (a, b) => a && b);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("or", (a, b) => a || b);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("not", (a) => !a);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("gt", (a, b) => a > b);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("lt", (a, b) => a < b);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("gte", (a, b) => a >= b);
-handlebars__WEBPACK_IMPORTED_MODULE_1__.registerHelper("lte", (a, b) => a <= b);
 try {
     await run();
 }
@@ -40124,52 +40099,91 @@ const getConfiguration = () => {
 
 /***/ }),
 
-/***/ 1100:
+/***/ 4496:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "gm": () => (/* binding */ extractTicketNumber),
-/* harmony export */   "vu": () => (/* binding */ withPipe),
-/* harmony export */   "zZ": () => (/* binding */ extractBranchName)
-/* harmony export */ });
-/* harmony import */ var _strings__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(4406);
 
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ templatefuncs)
+});
+
+// EXTERNAL MODULE: ./node_modules/handlebars/lib/index.js
+var lib = __nccwpck_require__(7492);
+var lib_default = /*#__PURE__*/__nccwpck_require__.n(lib);
+;// CONCATENATED MODULE: ./src/templatefuncs/strings.ts
+const refTitle = (branch) => {
+    if (!branch)
+        return "";
+    return branch
+        .split("-")
+        .map((w) => w[0].toUpperCase() + w?.substring(1).toLowerCase())
+        .join(" ");
+};
+
+;// CONCATENATED MODULE: ./src/templatefuncs/extract_ticket.ts
+
+const extractStage = (s) => {
+    let parts = s.split("/");
+    if (parts.length > 1) {
+        return parts[0];
+    }
+    return "";
+};
 const extractTicketNumber = (s) => {
-    const ticketNumber = s.split("-").slice(0, 2).join("-").toUpperCase();
-    if (ticketNumber.match(/^([A-Z]+-[0-9]+)$/)) {
+    const stage = extractStage(s);
+    s = s?.slice(stage.length + 1);
+    const ticketNumber = s?.split("-").slice(0, 2).join("-").toUpperCase();
+    if (ticketNumber?.match(/^([A-Z]+-[0-9]+)$/)) {
         return ticketNumber;
     }
     return "";
 };
 const extractBranchName = (s) => {
+    const stage = extractStage(s);
     const ticketNumber = extractTicketNumber(s);
-    return (0,_strings__WEBPACK_IMPORTED_MODULE_0__/* .refTitle */ .L)(s.slice(0, ticketNumber.length + 1));
+    s = s.slice((stage?.length && stage?.length + 1) +
+        (ticketNumber?.length && ticketNumber?.length + 1));
+    return refTitle(s);
 };
-const withPipe = (s) => {
-    return s ? `${s} | ` : "";
+const withPipe = (s, pipeChar = "|") => {
+    return s ? `${s} ${pipeChar} ` : "";
+};
+const ticketTitleFormat = (context) => {
+    return (withPipe(context.base.ref === "main" || context.base.ref === "master"
+        ? "RELEASE"
+        : "") +
+        withPipe(extractTicketNumber(context.head.ref)) +
+        extractBranchName(context.head.ref));
 };
 
+;// CONCATENATED MODULE: ./src/templatefuncs/index.ts
 
-/***/ }),
 
-/***/ 4406:
-/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
-"use strict";
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "L": () => (/* binding */ refTitle)
-/* harmony export */ });
-/* unused harmony export json */
-const refTitle = (branch) => {
-    return branch
-        .split("-")
-        .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
-        .join(" ");
-};
-const json = (s) => {
-    return JSON.stringify(s);
-};
+/* harmony default export */ function templatefuncs() {
+    // Ticket functions
+    lib_default().registerHelper("withPipe", withPipe);
+    lib_default().registerHelper("extractBranchName", extractBranchName);
+    lib_default().registerHelper("extractTicketNumber", extractTicketNumber);
+    lib_default().registerHelper("ticketFmt", ticketTitleFormat);
+    // String functions
+    lib_default().registerHelper("refTitle", refTitle);
+    // Util functions
+    lib_default().registerHelper("json", (a) => {
+        return new lib.SafeString(JSON.stringify(a, null, 2));
+    });
+    lib_default().registerHelper("eq", (a, b) => a === b);
+    lib_default().registerHelper("neq", (a, b) => a !== b);
+    lib_default().registerHelper("and", (a, b) => a && b);
+    lib_default().registerHelper("or", (a, b) => a || b);
+    lib_default().registerHelper("not", (a) => !a);
+    lib_default().registerHelper("gt", (a, b) => a > b);
+    lib_default().registerHelper("lt", (a, b) => a < b);
+    lib_default().registerHelper("gte", (a, b) => a >= b);
+    lib_default().registerHelper("lte", (a, b) => a <= b);
+}
 
 
 /***/ }),
